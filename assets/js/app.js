@@ -12,6 +12,7 @@ import '../css/app.scss';
 import $ from 'jquery';
 
 import 'bootstrap';
+import '@fortawesome/fontawesome-free/js/all';
 
 
 console.log('Hello Webpack Encore! Edit me in assets/js/app.js');
