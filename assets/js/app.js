@@ -15,4 +15,12 @@ import 'bootstrap';
 import '@fortawesome/fontawesome-free/js/all';
 
 
-console.log('Hello Webpack Encore! Edit me in assets/js/app.js');
+if ($(".delete_link")){
+  $(".delete_link").click(function(e){
+    e.preventDefault();
+    const result = confirm('Are you sure you want to delete this item?');
+    if(result){
+      $(e.target).closest("td,div").children('form').submit()
+    }
+  })
+}
