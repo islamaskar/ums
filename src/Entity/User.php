@@ -37,7 +37,7 @@ class User
     private $password;
 
     /**
-     * @ORM\ManyToMany(targetEntity="App\Entity\Group", mappedBy="user")
+     * @ORM\ManyToMany(targetEntity="App\Entity\Group", mappedBy="users")
      */
     private $groups;
 

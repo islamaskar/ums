@@ -6,8 +6,9 @@
     <h1>Edit User</h1>
 
     {{ include('user/_form.html.twig', {'button_label': 'Update'}) }}
-
-    <a href="{{ path('user_index') }}">back to list</a>
-
-    {{ include('user/_delete_form.html.twig') }}
+    <div>
+        <a href="{{ path('user_index') }}" class="btn btn-dark mt-2">< Back to list</a>
+        <a href="#" class="btn btn-danger delete_link mt-2">Delete</a>
+        {{ include('user/_delete_form.html.twig') }}
+    </div>
 {% endblock %}
