@@ -2,22 +2,45 @@
 <html>
   <head>
       <meta charset="UTF-8">
-      <title>{% block title %}Welcome!{% endblock %}</title>
+      <title>{% block title %}Welcome to UMS!{% endblock %}</title>
       {% block stylesheets %}
           {{ encore_entry_link_tags('app') }}
       {% endblock %}
   </head>
   <body>
-      <div class="container">
-        <div class="row">
+  
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+      <a class="navbar-brand" href="{{ path('index')}}">UMS</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+        <div class="navbar-nav">
+          <a class="nav-item nav-link {{ controller_name() == 'User' ? 'active' : ''}}" href="{{ path('user_index') }}">Users</span></a>
+          <a class="nav-item nav-link {{ controller_name() == 'Group' ? 'active' : ''}}" href="{{ path('group_index') }}">Groups</a>
+        </div>
+      </div>
+    </nav>
+    <div class="container-fluid">
+      <div class="row">
         <div class="col">
+          {% for message in app.flashes('success') %}
+            <div class="alert alert-success alert-dismissible fade show mt-2">
+                {{ message }}
+            </div>
+          {% endfor %}
+          {% for message in app.flashes('error') %}
+            <div class="alert alert-danger alert-dismissible fade show mt-2">
+                {{ message }}
+            </div>
+          {% endfor %}
           {% block body %}{% endblock %}
         </div>
-        </div>
-          
       </div>
-      {% block javascripts %}
-          {{ encore_entry_script_tags('app') }}
-      {% endblock %}
+        
+    </div>
+    {% block javascripts %}
+        {{ encore_entry_script_tags('app') }}
+    {% endblock %}
   </body>
 </html>
