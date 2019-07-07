@@ -6,6 +6,8 @@ use App\Entity\Group;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
+use App\Entity\User;
 
 class GroupType extends AbstractType
 {
@@ -13,8 +15,12 @@ class GroupType extends AbstractType
     {
         $builder
             ->add('name')
-            ->add('createdAt')
-            ->add('updatedAt')
+            ->add('users', EntityType::class, [
+                'class' => User::class,
+                'choice_label' => 'name',
+                'multiple' => true,
+                'required' => false,
+            ])
         ;
     }
 

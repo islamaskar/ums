@@ -1,15 +1,18 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Group index{% endblock %}
+{% block title %}Groups{% endblock %}
 
 {% block body %}
-    <h1>Group index</h1>
-
-    <table class="table">
+    <div class="mt-2 mb-2">
+        <h1 class="page-heading">Groups</h1>
+        <a href="{{ path('group_new') }}" class="btn btn-outline-primary heading-btn">Create new</a>
+    </div>
+    <table class="table table-hover">
         <thead>
             <tr>
                 <th>Id</th>
                 <th>Name</th>
+                <th>Users Number</th>
                 <th>CreatedAt</th>
                 <th>UpdatedAt</th>
                 <th>actions</th>
@@ -20,11 +23,15 @@
             <tr>
                 <td>{{ group.id }}</td>
                 <td>{{ group.name }}</td>
+                <td>{{ group.users.count}}</td>
                 <td>{{ group.createdAt ? group.createdAt|date('Y-m-d H:i:s') : '' }}</td>
                 <td>{{ group.updatedAt ? group.updatedAt|date('Y-m-d H:i:s') : '' }}</td>
                 <td>
-                    <a href="{{ path('group_show', {'id': group.id}) }}">show</a>
-                    <a href="{{ path('group_edit', {'id': group.id}) }}">edit</a>
+                    <a href="{{ path('group_show', {'id': group.id}) }}"><span class="fas fa-eye"></span></a>
+                    <a href="{{ path('group_edit', {'id': group.id}) }}"><span class="fas fa-edit"></a>
+                    <a href="#" class="delete_link"><span class="fas fa-trash-alt"></a>
+                    {{ include('group/_delete_form.html.twig') }}
+
                 </td>
             </tr>
         {% else %}
@@ -35,5 +42,4 @@
         </tbody>
     </table>
 
-    <a href="{{ path('group_new') }}">Create new</a>
 {% endblock %}

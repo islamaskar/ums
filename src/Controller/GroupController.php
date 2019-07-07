@@ -11,7 +11,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
- * @Route("/group")
+ * @Route("/admin/group")
  */
 class GroupController extends AbstractController
 {
@@ -39,6 +39,7 @@ class GroupController extends AbstractController
             $entityManager->persist($group);
             $entityManager->flush();
 
+            $this->addFlash('success', 'Group created successfully!');
             return $this->redirectToRoute('group_index');
         }
 
@@ -68,7 +69,7 @@ class GroupController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $this->getDoctrine()->getManager()->flush();
-
+            $this->addFlash('success', 'Group updated successfully!');
             return $this->redirectToRoute('group_index', [
                 'id' => $group->getId(),
             ]);
@@ -78,7 +79,7 @@ class GroupController extends AbstractController
             'group' => $group,
             'form' => $form->createView(),
         ]);
-    }
+    }   
 
     /**
      * @Route("/{id}", name="group_delete", methods={"DELETE"})
@@ -86,9 +87,14 @@ class GroupController extends AbstractController
     public function delete(Request $request, Group $group): Response
     {
         if ($this->isCsrfTokenValid('delete'.$group->getId(), $request->request->get('_token'))) {
-            $entityManager = $this->getDoctrine()->getManager();
-            $entityManager->remove($group);
-            $entityManager->flush();
+            if ($group->getUsers()->count() > 0) {
+                $this->addFlash('error', 'Sorry, this group is not empty!');
+            } else {
+                $entityManager = $this->getDoctrine()->getManager();
+                $entityManager->remove($group);
+                $entityManager->flush();
+                $this->addFlash('success', 'Group deleted successfully!');
+            }
         }
 
         return $this->redirectToRoute('group_index');
