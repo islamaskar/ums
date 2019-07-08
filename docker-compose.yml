@@ -1,0 +1,38 @@
+version: "3.4"
+
+services:
+
+  app: &app
+    build: .
+    container_name: app
+    volumes:
+        - .:/var/www/html/app
+    tty: true
+    depends_on:
+        - db
+    env_file:
+        - ./.env
+    ports:
+        - "8080:80"
+
+  db:
+    image: mysql:5.7
+    container_name: mysql
+    volumes:
+      - db_data:/var/lib/mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: ${DB_ROOT_PASS}
+      MYSQL_DATABASE: ${SYMFONY_DB_NAME}
+      MYSQL_USER: ${SYMFONY_DB_USER}
+      MYSQL_PASSWORD: ${SYMFONY_DB_PASS}
+    ports:
+        - "3307:3306"
+  
+  tasks:
+    <<: *app
+    container_name: tasks
+    ports: []
+    command: /bin/bash -c -l "dockerize -wait tcp://mysql:3306 -timeout 1m &&  bin/console doctrine:database:create --if-not-exists && bin/console doctrine:migrations:migrate --no-interaction --allow-no-migration"
+
+volumes:
+  db_data:
