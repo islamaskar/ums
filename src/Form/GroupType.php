@@ -20,6 +20,7 @@ class GroupType extends AbstractType
                 'choice_label' => 'name',
                 'multiple' => true,
                 'required' => false,
+                'help' => 'Hold {CTRL/⌘} to select multiple',
             ])
         ;
     }

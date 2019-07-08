@@ -24,6 +24,7 @@ class UserType extends AbstractType
                 'multiple' => true,
                 'required' => false,
                 'by_reference' => false,
+                'help' => 'Hold {CTRL/⌘} to select multiple',
             ])
         ;
     }
