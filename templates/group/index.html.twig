@@ -27,9 +27,9 @@
                 <td>{{ group.createdAt ? group.createdAt|date('Y-m-d H:i:s') : '' }}</td>
                 <td>{{ group.updatedAt ? group.updatedAt|date('Y-m-d H:i:s') : '' }}</td>
                 <td>
-                    <a href="{{ path('group_show', {'id': group.id}) }}"><span class="fas fa-eye"></span></a>
-                    <a href="{{ path('group_edit', {'id': group.id}) }}"><span class="fas fa-edit"></a>
-                    <a href="#" class="delete_link"><span class="fas fa-trash-alt"></a>
+                    <a href="{{ path('group_show', {'id': group.id}) }}" alt="show"><span class="fas fa-eye"></span></a>
+                    <a href="{{ path('group_edit', {'id': group.id}) }}" alt="edit"><span class="fas fa-edit"></a>
+                    <a href="#" class="delete_link" alt="group_{{ group.id }}"><span class="fas fa-trash-alt"></a>
                     {{ include('group/_delete_form.html.twig') }}
 
                 </td>
